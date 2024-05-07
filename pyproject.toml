@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "practice-fastapi-words-server"
+version = "0.1.0"
+description = ""
+authors = ["datrevter <rozhkovm176@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.12.2"
+fastapi = "^0.111.0"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
