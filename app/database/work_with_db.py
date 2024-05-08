@@ -1,4 +1,5 @@
 from app.database.db_connection import DbConnection
+# from db_connection import DbConnection
 
 
 def init_tables() -> None:
@@ -17,26 +18,43 @@ def init_tables() -> None:
             """)
         connection.execute("""CREATE TABLE IF NOT EXISTS games_status (
                     gameid INTEGER PRIMARY KEY,
-                    status BOOLEAN
+                    status INTEGER
                 )""")
 
 
-def create_new_room() -> None:
+def get_id_unfinished_rooms() -> list:
+    """
+    Get all id of unfinished games
+
+    :return: list with all id of unfinished games
+    """
+    with DbConnection() as connection:
+        res = connection.execute(
+            "SELECT gameid FROM games_status WHERE status IN (?, ?)", (100, 101)
+        ).fetchall()
+
+    return [id[0] for id in res]
+
+
+def create_new_room() -> int:
     """
     Create new note with new room id in games_status table
 
-    :return: None
+    :return: id of created room
     """
+    new_room_id = get_last_game_id() + 1
     with DbConnection() as connection:
         connection.execute(
             """
                 INSERT INTO games_status (gameid, status) VALUES (?, ?)
                 """,
-            (get_last_game_id() + 1, True),
+            (new_room_id, 100),
         )
 
+    return new_room_id
 
-def get_game_status(gameid) -> bool:
+
+def get_game_status(gameid) -> int:
     """
     If give a non-existent game ID, it will raise an error
 
@@ -56,7 +74,7 @@ def get_game_status(gameid) -> bool:
             raise ValueError("Gameid not found")
 
 
-def change_game_status(gameid) -> None:
+def change_game_status(gameid, status) -> None:
     """
     Change status of game to 'ended'
 
@@ -66,8 +84,8 @@ def change_game_status(gameid) -> None:
     with DbConnection() as connection:
         connection.execute(
             """
-        UPDATE games_status SET status = FALSE WHERE gameid=?""",
-            (gameid,),
+        UPDATE games_status SET status=(?) WHERE gameid=(?)""",
+            (status, gameid),
         )
 
 
