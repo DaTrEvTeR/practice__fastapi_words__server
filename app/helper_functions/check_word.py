@@ -5,9 +5,10 @@ def check_word(word: str, gameid: int):
     """
     Make all checks before add word to db, if word incorrect finish game
     """
-    if get_last_word(gameid)[-1] != word[0]:
-        return 201
-    elif word_already_used(word, gameid):
+    last_word = get_last_word(gameid)
+    if last_word:
+        if last_word[-1] != word[0]:
+            return 201
+    if word_already_used(word, gameid):
         return 202
-    else:
-        return 101
+    return 101

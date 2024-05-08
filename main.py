@@ -45,9 +45,9 @@ async def check_room_status(room_id) -> JSONResponse:
 
 
 @app.post("/{room_id}/")
-async def post_word(room_id, word) -> JSONResponse:
+async def post_word(room_id, word=fastapi.Body(...)) -> JSONResponse:
     """
     Check new word
     and if it is ok send to server
     """
-    post_word_in_server(room_id, word)
+    return post_word_in_server(room_id, word)

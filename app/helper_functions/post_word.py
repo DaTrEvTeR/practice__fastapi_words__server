@@ -9,6 +9,8 @@ def post_word_in_server(room_id, word):
             change_game_status(room_id, res)
             if res == 101:
                 add_word(word, room_id)
+                return "Word add"
+            return "Game ended"
 
         else:
             return "You can`t add word to finished game"

@@ -128,10 +128,10 @@ def get_last_word(gameid: int) -> str:
     """
     with DbConnection() as connection:
         res = connection.execute(
-            "SELECT word FROM words WHERE gameid=?", (gameid,)
+            "SELECT MAX(id), word FROM words WHERE gameid=?", (gameid,)
         ).fetchone()
 
-    return res[0] if res else ""
+    return res[1] if res else ""
 
 
 def word_already_used(word: str, gameid: int) -> bool:

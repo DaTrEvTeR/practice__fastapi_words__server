@@ -23,7 +23,7 @@ def get_additional_message(gameid, gamestatus):
             return "Enter first word"
         case 101:
             last_word = get_last_word(gameid)
-            return f"Last word {last_word}, nex word starts with {last_word[-1]}"
+            return f"Last word {last_word}, next word starts with {last_word[-1]}"
         case 201:
             return "Incorrect first letter"
         case 202:
