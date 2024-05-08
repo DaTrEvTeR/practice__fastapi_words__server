@@ -2,7 +2,7 @@ import fastapi
 from fastapi.responses import JSONResponse
 from app.database import work_with_db
 from app.helper_functions.get_game_status_data import get_game_status_data
-from app.helper_functions.check_word import check_word
+from app.helper_functions.post_word import post_word_in_server
 
 
 app = fastapi.FastAPI()
@@ -50,16 +50,4 @@ async def post_word(room_id, word) -> JSONResponse:
     Check new word
     and if it is ok send to server
     """
-
-    def post_word(room_id, word):
-        try:
-            if work_with_db.get_game_status(room_id) in (100, 101):
-                res = check_word(word, int(room_id))
-                work_with_db.change_game_status(room_id, res)
-                if res == 101:
-                    work_with_db.add_word(word, room_id)
-
-            else:
-                return "You can`t add word to finished game"
-        except ValueError:
-            return "Room not found"
+    post_word_in_server(room_id, word)
