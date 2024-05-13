@@ -1,6 +1,14 @@
 from pydantic import BaseModel
 
 
+STATUS_MESSAGE: dict[int, str] = {
+    100: "Game is on",
+    101: "Game is on",
+    201: "Game finished",
+    202: "Game finished",
+}
+
+
 class StatusMetadata(BaseModel):
     """Metadata for game status
 

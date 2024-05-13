@@ -1,17 +1,9 @@
-from app.settings.status_metadata import StatusMetadata
+from app.settings.status_metadata import StatusMetadata, STATUS_MESSAGE
 from app.database.work_with_db import (
     get_game_status,
     get_list_all_words_of_game,
     get_last_word,
 )
-
-
-STATUS_MESSAGE: dict[int, str] = {
-    100: "Game is on",
-    101: "Game is on",
-    201: "Game finished",
-    202: "Game finished",
-}
 
 
 def get_additional_message(gameid, gamestatus):

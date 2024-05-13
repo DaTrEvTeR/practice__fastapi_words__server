@@ -7,43 +7,18 @@
 Run API on localhost
 
 ```shell
-make run-app-reload
+make build-image && \
+make run-image
 ```
+
+If image was builded already, you can use second command only
 
 ---
 
 ## 🛠️ Dev
 
-Install dependencies and register pre-commit.
+Install poetry, init venv, download all requirements and install pre-commit hooks
 
 ```shell
 make init-dev
-```
-
----
-
-## Install
-
-Use python3.12, poetry for install venv with all dependencies
-
-```shell
-make poetry-install
-```
-
-If you don`t have poetry
-
-```shell
-make install-poetry
-```
-
-If u don`t have pipx:
-
-```shell
-make install-pipx
-```
-
-Activate poetry shell
-
-```shell
-make activate-shell
 ```
