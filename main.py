@@ -50,4 +50,4 @@ async def post_word(room_id, word=fastapi.Body(...)) -> JSONResponse:
     Check new word
     and if it is ok send to server
     """
-    return post_word_in_server(room_id, word)
+    return post_word_in_server(room_id, word.lower)
